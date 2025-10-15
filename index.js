@@ -2,10 +2,21 @@
 // Define a function called getDogArtworks that makes the API call to the request URL you defined in the worksheet (to get 3 dog artworks)
 // Make sure to console log all 3 titles (after you get the data retrieve the nested values) 
 
+const requestUrl = "https://api.artic.edu/api/v1/artworks/search?q=dogs&size=3"
 
+
+async function fetchData(requestUrl){
+
+    const response = await fetch(requestUrl);
+    const data = await response.json()
+    for(let i =0; i < 3 ; i++){
+    console.log(data.data[i].title);
+    }
+    return data;
+}
 
 // Call the function and confirm it worked correctly
-
+fetchData(requestUrl)
 
 // Task 2
 // Define another function called searchArtworks that takes in a search query and a size limit
@@ -14,9 +25,17 @@
 // Now when the function it's called it should only return artwork the specified # of artworks based on the inputed search query
 // Make sure to console log the values. 
 
-
+async function searchArtworks(query, size){
+    let requestUrl1 = "https://api.artic.edu/api/v1/artworks/search?q=" + query + "&size=" + size
+    const response = await fetch(requestUrl1);
+    const data = await response.json()
+    for(let i =0; i < size ; i++){
+    console.log(data.data[i].title);
+    }
+    return data;
+}
 
 
 // Call the new function with the user inputs and confirm it worked correctly 
 // Test with anything you'd like like 5 "cats" or 2 "flowers"
-
+searchArtworks("cats", 2)
